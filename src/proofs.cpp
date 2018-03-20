@@ -40,9 +40,14 @@ int64_t GetCoinbaseValue(int nHeight, CAmount nFees)
 {
     CAmount nSubsidy = 0;
 
-	if(nHeight == 1) {
-		nSubsidy = 16400000 * COIN;
-	}
+	if(nHeight >= 1 && nHeight <= 10) {
+		nSubsidy = 1000000000 * COIN;
+	} else if(nHeight >= 11 && nHeight <= 50) {
+		nSubsidy = 5000000 * COIN;
+	} else if(nHeight >= 51 && nHeight <= 200) {
+		nSubsidy = 10000 * COIN;
+	}  
+		
 
     return nSubsidy;
 }
@@ -52,18 +57,18 @@ int64_t GetCoinstakeValue(int64_t nCoinAge, CAmount nFees, int nHeight)
 {
 	CAmount nSubsidy = 0.2 * COIN;
 
-	if(nHeight <= 125146) {
-		nSubsidy = 23 * COIN;
-	} else if(nHeight <= 568622) {
-		nSubsidy = 17 * COIN;
-	} else if(nHeight <= 1012098) {
-		nSubsidy = 11.5 * COIN;
-	} else if(nHeight <= 1455574) {
-		nSubsidy = 5.75 * COIN;
-	} else if(nHeight <= 3675950) {
-		nSubsidy = 1.85 * COIN;
+	if(nHeight <= 200) {
+		nSubsidy = 0 * COIN;
+	} else if(nHeight <= 50000*1) {
+		nSubsidy =  1000 * COIN;
+	} else if(nHeight <= 50000*2) {
+		nSubsidy = 900 * COIN;
+	} else if(nHeight <= 50000*3) {
+		nSubsidy = 800 * COIN;
+	} else if(nHeight <= 50000*4) {
+		nSubsidy = 700 * COIN;
 	} else {
-		nSubsidy = 0.2 * COIN;
+		nSubsidy = 600 * COIN;
 	}
 
     return nSubsidy + nFees;

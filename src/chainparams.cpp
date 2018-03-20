@@ -86,8 +86,8 @@ public:
         pchMessageStart[2] = 0xd8;
         pchMessageStart[3] = 0xec;
         vAlertPubKey = ParseHex("040fd972dba056779d9f998cba8d5866e47fb875fd8cb9c4d36baf88db738a6ffbc581e0fad7f2f129c7f814d81baeda567a3735aaf0bfbc339f40359d4a52b4bf");
-        nDefaultPort = 12700;
-        nRPCPort = 12705;
+        nDefaultPort = 8888;
+        nRPCPort = 8889;
         nProofOfWorkLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         nProofOfStakeLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         nTargetSpacing = 64;
@@ -106,9 +106,8 @@ public:
         base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
-	vSeeds.push_back(CDNSSeedData("seeder.baseserv.com", "main.seeder.baseserv.com"));
-        vSeeds.push_back(CDNSSeedData("seeder.uksafedns.net", "main.seeder.uksafedns.net"));
-        
+        vSeeds.push_back(CDNSSeedData("23.91.97.27", "23.91.97.27"));//ucloud-hk-ubuntu
+	vSeeds.push_back(CDNSSeedData("106.75.99.86", "106.75.99.86"));//ucloud-bj-ubuntu
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
 	nPoolMaxTransactions = 3;
