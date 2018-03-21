@@ -154,29 +154,32 @@ Value getstakinginfo(const Array& params, bool fHelp)
 
 Value checkkernel(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() < 1 || params.size() > 2)
+LogPrintf("MINER fail 1\n");
+    if (fHelp || params.size() < 1 || params.size() > 2) { 
+LogPrintf("MINER fail 1.0\n");
         throw runtime_error(
             "checkkernel [{\"txid\":txid,\"vout\":n},...] [createblocktemplate=false]\n"
             "Check if one of given inputs is a kernel input at the moment.\n"
         );
-
+    }
+LogPrintf("MINER fail 1.1\n");
     RPCTypeCheck(params, list_of(array_type)(bool_type));
 
     Array inputs = params[0].get_array();
     bool fCreateBlockTemplate = params.size() > 1 ? params[1].get_bool() : false;
 
-    if (vNodes.empty())
-        throw JSONRPCError(-9, "Ion is not connected!");
+//    if (vNodes.empty())
+//        throw JSONRPCError(-9, "Ion is not connected!");
 
-    if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Ion is downloading blocks...");
-
+//    if (IsInitialBlockDownload())
+//        throw JSONRPCError(-10, "Ion is downloading blocks...");
+LogPrintf("MINER fail 1.2\n");
     COutPoint kernel;
     CBlockIndex* pindexPrev = pindexBest;
     unsigned int nBits = GetNextTargetRequired(pindexPrev, true);
     int64_t nTime = GetAdjustedTime();
     nTime &= ~STAKE_TIMESTAMP_MASK;
-
+LogPrintf("MINER fail 1.3\n");
     BOOST_FOREACH(Value& input, inputs)
     {
         const Object& o = input.get_obj();
@@ -202,7 +205,7 @@ Value checkkernel(const Array& params, bool fHelp)
             break;
         }
     }
-
+LogPrintf("MINER fail 1.4\n");
     Object result;
     result.push_back(Pair("found", !kernel.IsNull()));
 
@@ -217,7 +220,7 @@ Value checkkernel(const Array& params, bool fHelp)
 
     if (!fCreateBlockTemplate)
         return result;
-
+LogPrintf("MINER fail 1.5\n");
     CAmount nFees;
     auto_ptr<CBlock> pblock(CreateNewBlock(*pMiningKey, true, &nFees));
 
@@ -228,11 +231,11 @@ Value checkkernel(const Array& params, bool fHelp)
 
     result.push_back(Pair("blocktemplate", HexStr(ss.begin(), ss.end())));
     result.push_back(Pair("blocktemplatefees", nFees));
-
+LogPrintf("MINER fail 1.6\n");
     CPubKey pubkey;
     if (!pMiningKey->GetReservedKey(pubkey))
         throw JSONRPCError(RPC_MISC_ERROR, "GetReservedKey failed");
-
+LogPrintf("MINER fail 1.7\n");
     result.push_back(Pair("blocktemplatesignkey", HexStr(pubkey)));
 
     return result;
@@ -240,17 +243,18 @@ Value checkkernel(const Array& params, bool fHelp)
 
 Value getworkex(const Array& params, bool fHelp)
 {
+LogPrintf("MINER fail 2\n");
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "getworkex [data, coinbase]\n"
             "If [data, coinbase] is not specified, returns extended work data.\n"
         );
 
-    if (vNodes.empty())
-        throw JSONRPCError(-9, "Ion is not connected!");
+//    if (vNodes.empty())
+//        throw JSONRPCError(-9, "Ion is not connected!");
 
-    if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Ion is downloading blocks...");
+//    if (IsInitialBlockDownload())
+//        throw JSONRPCError(-10, "Ion is downloading blocks...");
 
     if (pindexBest->nHeight >= Params().LastPOWBlock())
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -370,6 +374,7 @@ Value getworkex(const Array& params, bool fHelp)
 
 Value getwork(const Array& params, bool fHelp)
 {
+LogPrintf("MINER fail 3\n");
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getwork [data]\n"
@@ -380,12 +385,12 @@ Value getwork(const Array& params, bool fHelp)
             "  \"target\" : little endian hash target\n"
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
-    if (vNodes.empty())
+/*    if (vNodes.empty())
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Ion is not connected!");
 
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Ion is downloading blocks...");
-
+*/
     if (pindexBest->nHeight >= Params().LastPOWBlock())
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
 
@@ -486,6 +491,7 @@ Value getwork(const Array& params, bool fHelp)
 
 Value getblocktemplate(const Array& params, bool fHelp)
 {
+LogPrintf("MINER fail 4\n");
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getblocktemplate [params]\n"
@@ -513,7 +519,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             "  \"masternode_payments\" : true|false,         (boolean) true, if masternode payments are enabled"
             "  \"enforce_masternode_payments\" : true|false  (boolean) true, if masternode payments are enforced"
             "See https://en.bitcoin.it/wiki/BIP_0022 for full specification.");
-
+LogPrintf("MINER fail 4.1\n");
     std::string strMode = "template";
     if (params.size() > 0)
     {
@@ -528,12 +534,12 @@ Value getblocktemplate(const Array& params, bool fHelp)
         else
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
     }
-
+LogPrintf("MINER fail 4.2\n");
     if (strMode != "template")
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
-
-    if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Ion is not connected!");
+LogPrintf("MINER fail 4.3\n");
+//    if (vNodes.empty())
+//        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Ion is not connected!");
 
     //if (IsInitialBlockDownload())
     //    throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Ion is downloading blocks...");

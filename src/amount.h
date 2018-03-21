@@ -35,7 +35,7 @@ extern const std::string CURRENCY_UNIT;
    getblocknumber 1 returns     "mint" : 16400000.00000000, which means
       It this case we can count (Total amount)-(Premine)= 55000000-16400000 = 38600000
  */
-static const CAmount MAX_MONEY = 38600000 * COIN; //fix correct amount of coins
+static const CAmount MAX_MONEY = 90000000000 * COIN; //fix correct amount of coins
 inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 
 /**

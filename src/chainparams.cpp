@@ -108,6 +108,7 @@ public:
 
         vSeeds.push_back(CDNSSeedData("23.91.97.27", "23.91.97.27"));//ucloud-hk-ubuntu
 	vSeeds.push_back(CDNSSeedData("106.75.99.86", "106.75.99.86"));//ucloud-bj-ubuntu
+	vSeeds.push_back(CDNSSeedData("23.248.162.212", "23.248.162.212"));
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
 	nPoolMaxTransactions = 3;
